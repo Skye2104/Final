@@ -1,0 +1,97 @@
+import csv
+file = 'Credentials.csv'
+
+data = []
+flight = []
+last = []
+first = []
+state = []
+tin = []
+drl = []
+
+with open(file, 'r') as infile:
+    for line in csv.DictReader(infile):
+        data.append(line)
+        
+        for entry in data:
+            flight.append(entry['Flight_num'])
+            last.append(entry['Last_name'])
+            first.append(entry['First_name'])
+            state.append(entry['State_ID'])
+            tin.append(entry['TIN'])
+            drl.append(entry["Driver's_license"])
+            
+        allowed_passenger = {}
+        
+        for flight_num in set(flight):
+            for info in data:
+                if info['Flight_num'] == flight_num:
+                    if flight_num not in allowed_passenger:
+                        allowed_passenger[flight_num] = [info['Last_name'] + ","+ info['First_name']]
+                      
+        
+def corona_test():
+    CovidReport=input('Do you have a negative COVID report? (Enter Y or N): ')
+    testPass=False
+    if report.lower()=='n':
+        temperature=int(input('Enter your current temperature in Farenheit: '))
+        if temperature <101:
+            testPass=True
+        else:
+            print('You are not allowed to board due to a high temperature.')
+    else:
+        testPass=True
+    return testPass
+
+def weight_check():
+    weight=float(input('Enter your weight in KG: '))
+    if weight<8:
+        return True
+    else:
+        print('Luggage is over the 8KG weight limit.')
+        
+def passenger_info():
+    first_name = input('Enter first name:\n')
+    last_name = input('Enter last name:\n')
+    flight_num = input('Enter flight number:\n')
+    ID = intput('Enter ID number:\n')
+    return first_name, last_name, flight_number, ID 
+
+def Update_passenger(Passenger_first, Passenger_last, Flight, ID):
+    if Flight in Allowed_passenger:
+        if Passenger_last + ", " + Passenger_first in Allowed_passenger.get(Flight):
+            if ID in state:
+                if corona_test():
+                    if weight_check():
+                        for i in Allowed_passenger:
+                            if Flight in i:
+                                print(Flight + ":", Allowed_passenger.get(Flight))
+            elif ID in tin:
+                if corona_test():
+                    if weight_check():
+                        for i in Allowed_passenger:
+                            if Flight in i:
+                                print(Flight + ":", Allowed_passenger.get(Flight))
+            elif ID in drl:
+                if corona_test():
+                    if weight_check():
+                        for i in Allowed_passenger:
+                            if Flight in i:
+                                print(Flight + ":", Allowed_passenger.get(Flight))
+            else:
+                print('Not a valid ID, Try Again')
+    
+    if key==flight:
+        for name in value:
+            
+            if name[1].lower()==passenger_first.lower() and name[0].lower()==passenger_last.lower():
+                listp=[passenger_first,passenger_last,ID]
+                allowed_passengers[flight]=listp
+                return allowed_passengers
+
+for i in range(0,len(data)):
+    Passenger_first, Passenger_last, Flight, ID = passenger_info()
+    Update_passenger(Passenger_first, Passenger_last, Flight, ID)
+    print(Allowed_passengers)
+                             
+    infile.close()
